@@ -58,4 +58,10 @@ router.get('/:id', async function(req, res, next){
     res.render('post',{post:post})
 });
 
+router.get('/:id/comment', async function(req, res, next){
+    //add the ability to add a comment here!
+    //add the comments to their own collection
+    res.redirect('/post/'+id)
+});
+
 module.exports = router;
