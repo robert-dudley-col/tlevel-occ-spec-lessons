@@ -1,0 +1,35 @@
+extends layout
+
+block content 
+  // header 1 -> main title 
+  h1 Welcome to my forum
+
+  //will loop throught each post within
+    the posts array
+  each post in posts
+    // for each post a title will be outputted
+    h2 Title: #{post.title}
+    //an author will be outputted
+    h3 Author: #{post.user}
+    // and the text of the post too
+       this will output just the first 50 characters
+       and will put ... at the end
+    p Text #{post.content.substring(0,50) + '...'} 
+    // this will create a button that links to
+       /post/whatever the id of the post is
+    a(href='/post/' + post._id)
+      button(type="button") Go to post
+  
+  
+  //create a form that links to /post
+    the form will contain a text box for the title
+    and a text box for the content of the post
+  form(action='/post', method='POST')
+    p
+      label(for='title') Title: 
+        input(name='title', value='', type='text',required)
+    p
+      label(for='content') Content: 
+        textarea#content(name='content', v-model='desc', required)
+    p
+      input(value='Submit', type='submit')

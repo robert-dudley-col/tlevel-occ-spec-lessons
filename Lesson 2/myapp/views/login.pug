@@ -1,0 +1,14 @@
+extends layout
+
+block content 
+  h1 Login
+  p #{message}
+  form(action='/login', method='POST')
+    p
+      label(for='email') Email: 
+        input(name='email', value='', type='email',required)
+    p
+      label(for='password') Password: 
+        input(name='password', type='password', value='', required)
+    p
+      input(value='Submit', type='submit')
