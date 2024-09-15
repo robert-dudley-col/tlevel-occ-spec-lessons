@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 Users
+
+    table
+        tr 
+            th Email Address
+            th Change Password
+            th Delete User
+        each user in users
+            tr
+                td=user.email
+                td 
+                    a(href='/users/'+user._id+'/password')
+                        button(type="button") Change Password
+                td 
+                    a(href='/users/'+user._id+'/delete')
+                        button(type="button") Delete User

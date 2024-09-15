@@ -1,0 +1,17 @@
+extends layout
+
+block content 
+    h1 Register
+    p=message
+    form(action='/register', method='POST')
+        p
+            label(for='email') Email: 
+                input(name='email', value='', type='email',required)
+        p
+            label(for='password') Password: 
+                input(name='password', type='password', value='', required)
+        p
+            label(for='password_check') Repeat Password: 
+                input(name='password_check', type='password', value='', required)
+        p
+            input(value='Submit', type='submit')
