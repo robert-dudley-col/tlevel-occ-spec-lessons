@@ -45,7 +45,7 @@ export default function Login(){
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))
-      }
+    }
 
     
     return (
