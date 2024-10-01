@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "66f03394db493b6703ea3dd0"
+  },
+  "name": "Latte",
+  "price": 5.1,
+  "image": "https://www.caffesociety.co.uk/assets/recipe-images/latte-small.jpg",
+  "type": "drink"
+},
+{
+  "_id": {
+    "$oid": "66f035c6db493b6703ea3dd1"
+  },
+  "name": "Tea",
+  "price": 3.5,
+  "image": "https://www.teaforturmeric.com/wp-content/uploads/2021/11/Masala-Chai-Tea-Recipe-Card.jpg",
+  "type": "drink"
+}]
