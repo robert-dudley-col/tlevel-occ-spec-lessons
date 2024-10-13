@@ -5,7 +5,7 @@ var mongo = require('mongodb');
 var CryptoJS = require('crypto-js');
 var functions = require('./functions');
 
-const uri = "mongodb://localhost:27017/";
+const uri = "mongodb://127.0.0.1:27017/";
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
