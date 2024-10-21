@@ -9,14 +9,24 @@ import {
 } from 'react-bootstrap';
 
 export default function Ordering(){
-    const [isLoaded, setisLoaded] = useState(false)
-    const [drinks, setDrinks] = useState([])
+    const [isLoaded, setisLoaded] = useState(false);
+    const [drinks, setDrinks] = useState([]);
 
-    //add in a use effect to get the drinks from the backend
-    //localhost:3000/products/drinks
     useEffect(() =>{
-        setisLoaded(true)
-    },[])
+        axios
+        .get('http://127.0.0.1:3000/products/drinks')
+        .then((res) => {
+            setDrinks(res.data);
+            setisLoaded(true);
+        }).then(()=>{
+            axios.get('')
+            .then((res)=>{
+                
+            })
+        })
+        .catch((error) => console.log(error))
+        //second axios.get for food
+    },[]);
 
     if(isLoaded)
     {
@@ -50,7 +60,7 @@ export default function Ordering(){
                         </Table>
                     </Tab>
                     <Tab eventKey="food" title="Food">
-    
+                        
                     </Tab>
                 </Tabs>
             </>
