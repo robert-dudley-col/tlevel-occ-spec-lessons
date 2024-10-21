@@ -14,8 +14,10 @@ export default function Ordering(){
     const [isLoaded, setisLoaded] = useState(false);
     const [drinks, setDrinks] = useState([]);
     const [foods, setFood] = useState([])
+    const [basket, setBasket] = useState([])
 
     useEffect(() =>{
+        var user = Cookies.get('token');
         axios
         .get('http://127.0.0.1:3000/products/drinks')
         .then((res) => {
@@ -24,7 +26,12 @@ export default function Ordering(){
             axios.get('http://127.0.0.1:3000/products/food')
             .then((res)=>{
                 setFood(res.data);
-                setisLoaded(true);
+            }).then(() => {
+                axios.get('http://127.0.0.1:3000/basket?user='+user)
+                .then((res)=>{
+                    setBasket(res.data)
+                    setisLoaded(true);
+                })
             })
         })
         .catch((error) => console.log(error))
@@ -36,7 +43,7 @@ export default function Ordering(){
         .post('http://localhost:3000/basket/item',{
             item:item,user:userid
         }).then((res) =>{
-            console.log(res.data)
+            setBasket(res.data)
         })
     }
 
@@ -109,20 +116,22 @@ export default function Ordering(){
                                     <th>Remove from basket</th>
                                 </tr>
                             </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td><img/></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><Button variant="danger">Remove from Basket</Button></td>
-                                </tr>
-                            </tbody>
-
+                            {
+                                basket.items.map((item) =>(
+                                    <tbody>
+                                        <tr>
+                                            <td><img src={item.image} style={{width:"100px"}}/></td>
+                                            <td>{item.name}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.quantity * item.price}</td>
+                                            <td><Button variant="danger">Remove from Basket</Button></td>
+                                        </tr>
+                                    </tbody>
+                                ))
+                            }
                         </Table>
                         <Card.Text>
-                            Basket total: £xx.xx
+                            Basket total: £{basket.total}
                         </Card.Text>
                     </Card.Body>
                 </Card>

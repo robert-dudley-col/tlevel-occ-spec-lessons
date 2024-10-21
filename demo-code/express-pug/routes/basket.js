@@ -38,7 +38,8 @@ async function GetBasket(userid){
                         price:product.price,
                         name:product.name,
                         quantity:item.quantity,
-                        id:item.item
+                        id:item.item,
+                        image:product.image
                     })
                     total = total + (item.quantity * product.price);
                 }
