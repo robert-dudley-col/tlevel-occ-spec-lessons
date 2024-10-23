@@ -9,12 +9,14 @@ import {
     Tabs
 } from 'react-bootstrap';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export default function Ordering(){
     const [isLoaded, setisLoaded] = useState(false);
     const [drinks, setDrinks] = useState([]);
     const [foods, setFood] = useState([])
     const [basket, setBasket] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() =>{
         var user = Cookies.get('token');
@@ -58,6 +60,22 @@ export default function Ordering(){
             setBasket(res.data);
         }).catch((error) =>{
             console.log(error)
+        })
+    }
+
+    const CreateOrder = () => {
+        var userid = Cookies.get('token');
+        var site = Cookies.get('site');
+        axios
+        .post('http://localhost:3000/orders',{
+            site:site, user:userid
+        }).then((res) =>{
+            if(res.data.order != undefined)
+            {
+                navigate('/order/'+res.data.order);
+            }else{
+                console.log('Could not create order')
+            }
         })
     }
 
@@ -138,14 +156,15 @@ export default function Ordering(){
                                             <td>{item.name}</td>
                                             <td>{item.quantity}</td>
                                             <td>{item.quantity * item.price}</td>
-                                            <td><Button onClick={() => {RemoveFromBasket(item.item)}} variant="danger">Remove from Basket</Button></td>
+                                            <td><Button onClick={() => {RemoveFromBasket(item.id)}} variant="danger">Remove from Basket</Button></td>
                                         </tr>
                                     </tbody>
                                 ))
                             }
                         </Table>
                         <Card.Text>
-                            Basket total: £{basket.total}
+                            Basket total: £{basket.total} 
+                            <Button onClick={CreateOrder} className='float-end' variant="success">Create Order</Button>
                         </Card.Text>
                     </Card.Body>
                 </Card>

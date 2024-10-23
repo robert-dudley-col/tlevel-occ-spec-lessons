@@ -154,7 +154,7 @@ router.delete('/item', async function(req,res,next){
         //establish our database connection
         const client = new MongoClient(databaseLink);
         const database = client.db('coffee');
-        const collection = database.collection('basket');
+        const collection = database.collection('baskets');
 
         //check if the user already has a basket
         if(await CheckExistingBasket(user))
@@ -176,7 +176,7 @@ router.delete('/item', async function(req,res,next){
                     {
                         newItems.push({
                             item:dbItem.item,
-                            quantity: dbItem.quantity -1
+                            quantity: dbItem.quantity - 1
                         })
                     }
                 }
