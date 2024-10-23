@@ -47,6 +47,20 @@ export default function Ordering(){
         })
     }
 
+    const RemoveFromBasket = (item) =>{
+        var userid = Cookies.get('token');
+        axios
+        .delete('http://localhost:3000/basket/item',{
+            data:{
+                item:item,user:userid
+            }
+        }).then((res) =>{
+            setBasket(res.data);
+        }).catch((error) =>{
+            console.log(error)
+        })
+    }
+
     if(isLoaded)
     {
         return(
@@ -67,7 +81,7 @@ export default function Ordering(){
                             <tbody>
                                 {
                                     drinks.map(drink => (
-                                        <tr>
+                                        <tr key={drink._id}>
                                             <td><img src={drink.image} style={{width:"100px"}}/></td>
                                             <td>{drink.name}</td>
                                             <td>£{drink.price}</td>
@@ -91,7 +105,7 @@ export default function Ordering(){
                             <tbody>
                                 {
                                     foods.map(food => (
-                                        <tr>
+                                        <tr key={food._id}>
                                             <td><img src={food.image} style={{width:"100px"}}/></td>
                                             <td>{food.name}</td>
                                             <td>£{food.price}</td>
@@ -118,13 +132,13 @@ export default function Ordering(){
                             </thead>
                             {
                                 basket.items.map((item) =>(
-                                    <tbody>
-                                        <tr>
+                                    <tbody key={item.item}>
+                                        <tr >
                                             <td><img src={item.image} style={{width:"100px"}}/></td>
                                             <td>{item.name}</td>
                                             <td>{item.quantity}</td>
                                             <td>{item.quantity * item.price}</td>
-                                            <td><Button variant="danger">Remove from Basket</Button></td>
+                                            <td><Button onClick={() => {RemoveFromBasket(item.item)}} variant="danger">Remove from Basket</Button></td>
                                         </tr>
                                     </tbody>
                                 ))

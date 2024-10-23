@@ -142,4 +142,68 @@ router.post('/item', async function(req,res,next){
     }
 })
 
+// localhost:3000/basket/item - DELETE
+// remove an item from the basket
+// body < user + item
+router.delete('/item', async function(req,res,next){
+    try {
+        //get the values from the body of the request for the user and item
+        var user = req.body.user;
+        var item = req.body.item;
+
+        //establish our database connection
+        const client = new MongoClient(databaseLink);
+        const database = client.db('coffee');
+        const collection = database.collection('basket');
+
+        //check if the user already has a basket
+        if(await CheckExistingBasket(user))
+        {
+            //get the user's basket from the database
+            var basket = await collection.findOne({
+                user:user
+            })
+
+            var items = basket.items;
+            var newItems = [];
+            for(const dbItem of items)
+            {
+                if(dbItem.item != item)
+                {
+                    newItems.push(dbItem);
+                }else{
+                    if(dbItem.quantity != 1)
+                    {
+                        newItems.push({
+                            item:dbItem.item,
+                            quantity: dbItem.quantity -1
+                        })
+                    }
+                }
+            }
+
+            await collection.updateOne({
+                user:user
+            },{
+                "$set":{
+                    items:newItems
+                }
+            })
+
+            res.json(await GetBasket(user));
+            client.close();
+        }else{
+            //if the user does not have a basket return an error code
+            //and close database connection
+            res.status(500).json({error:"User does not have a basket"})
+            client.close();
+        }
+    } catch (error) {
+        //if there's an error, log it to console and return back an error code with
+        //a brief explaination
+        console.log(error)
+        res.status(500).json({error:"Could not remove item from basket"})
+    }
+})
+
 module.exports = router;
