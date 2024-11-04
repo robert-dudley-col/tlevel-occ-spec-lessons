@@ -12,6 +12,7 @@ import axios from 'axios';
 export default function PageNavbar(){
     const [user, setUser] = useState("")
     const navigate = useNavigate();
+    var userid = Cookies.get('token');
 
     useEffect(() => {
         var user = Cookies.get('token');
@@ -44,7 +45,8 @@ export default function PageNavbar(){
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/sites">Change Site</Nav.Link>
-                        <Nav.Link href="/">Pricing</Nav.Link>
+                        <Nav.Link href={"/orders/user/"+userid}>Your Orders</Nav.Link>
+                        <Nav.Link href={"/orders/site/"}>View Orders</Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end">
                         <Navbar.Text>

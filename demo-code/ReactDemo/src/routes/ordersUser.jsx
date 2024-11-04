@@ -33,6 +33,7 @@ export default function OrdersUser(){
             <>
                 <PageNavbar/>
                 <Container fluid>
+                    <Row>
                     <Col xs={3}></Col>
                     <Col xs={6}>
                         <Card>
@@ -64,6 +65,7 @@ export default function OrdersUser(){
                         </Card>
                     </Col>
                     <Col xs={3}></Col>
+                    </Row>
                 </Container>
             </>
         )

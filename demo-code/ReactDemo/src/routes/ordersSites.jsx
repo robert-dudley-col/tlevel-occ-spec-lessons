@@ -55,6 +55,7 @@ export default function OrdersSites(){
             <>
                 <PageNavbar/>
                 <Container fluid>
+                    <Row>
                     <Col xs={3}></Col>
                     <Col xs={6}>
                         <Card>
@@ -94,6 +95,7 @@ export default function OrdersSites(){
                         </Card>
                     </Col>
                     <Col xs={3}></Col>
+                    </Row>
                 </Container>
             </>
         )
