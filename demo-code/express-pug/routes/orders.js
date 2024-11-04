@@ -76,7 +76,8 @@ async function GetOrder(order_id){
             site:site.name,
             items:itemsData,
             total:total,
-            timestamp:order.timestamp
+            timestamp:order.timestamp,
+            id:order_id
         });
 
     } catch (error) {
@@ -156,7 +157,7 @@ router.get('/site/:siteid', async function(req,res,next){
 
             res.json(orders);
         }else{
-            res.status(500).json({error:"User has no orders"})
+            res.json([])
         }
     } catch (error) {
         console.log(error);

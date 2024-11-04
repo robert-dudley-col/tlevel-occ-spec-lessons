@@ -10,6 +10,7 @@ import Sites from './routes/sites';
 import Index from './routes';
 import Order from './routes/order';
 import OrdersUser from './routes/ordersUser';
+import OrdersSites from './routes/ordersSites';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path:'/orders/user/:userid',
     element:<OrdersUser/>
+  },
+  {
+    path:'/orders/site',
+    element:<OrdersSites/>
   }
 ]);
 
