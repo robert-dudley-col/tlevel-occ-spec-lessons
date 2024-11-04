@@ -133,4 +133,35 @@ router.get('/user/:userid', async function(req,res,next){
     }
 });
 
+//localhost:3000/orders/site/<site id>
+//load all the orders for a specific site
+router.get('/site/:siteid', async function(req,res,next){
+    try {
+        var site_id = req.params.siteid;
+        const client = new MongoClient(databaseLink);
+        const database = client.db('coffee');
+        const collection = database.collection('orders');
+
+        var orders_db = await collection.find({
+            site:site_id
+        }).toArray();
+
+        if(orders_db.length>=1)
+        {
+            var orders = [];
+            for(const order_db of orders_db){
+                var order = await GetOrder(order_db._id);
+                orders.push(order);
+            }
+
+            res.json(orders);
+        }else{
+            res.status(500).json({error:"User has no orders"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"Could not get users orders"});
+    }
+});
+
 module.exports = router;
