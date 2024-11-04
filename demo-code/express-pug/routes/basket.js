@@ -70,7 +70,10 @@ router.get('/', async function(req,res,next){
                 res.json(basket)
             }
         }else{
-            res.status(500).json({error:"User does not have a basket"})
+            res.json({
+                items:[],
+                total:0
+            })
         }
     } catch (error) {
         console.log(error)

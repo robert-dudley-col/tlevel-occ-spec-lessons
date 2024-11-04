@@ -36,9 +36,8 @@ router.post('/', async function(req,res,next){
     }
 });
 
-router.get('/:order',async function(req,res,next){
+async function GetOrder(order_id){
     try {
-        var order_id = req.params.order;
         const client = new MongoClient(databaseLink);
         const database = client.db('coffee');
 
@@ -73,16 +72,64 @@ router.get('/:order',async function(req,res,next){
             _id: new mongo.ObjectId(order.site)
         })
 
-        res.json({
+        return({
             site:site.name,
             items:itemsData,
             total:total,
             timestamp:order.timestamp
-        })
+        });
 
     } catch (error) {
         console.log(error);
+        return false;
+    }
+}
+
+router.get('/:order',async function(req,res,next){
+    try {
+        var order_id = req.params.order;
+        var order = await GetOrder(order_id);
+
+        if(order!==false)
+        {
+            res.json(order)
+        }else{
+            res.status(500).json({error:"Could not get order"})
+        }
+    } catch (error) {
+        console.log(error)
         res.status(500).json({error:"Could not get order"})
+    }
+});
+
+//localhost:3000/orders/user/<users id>
+//returns all the orders for a specific user
+router.get('/user/:userid', async function(req,res,next){
+    try {
+        var user_id = req.params.userid;
+        const client = new MongoClient(databaseLink);
+        const database = client.db('coffee');
+        const collection = database.collection('orders');
+
+        var orders_db = await collection.find({
+            user:user_id
+        }).toArray();
+
+        if(orders_db.length>=1)
+        {
+            var orders = [];
+            for(const order_db of orders_db){
+                var order = await GetOrder(order_db._id);
+                orders.push(order);
+            }
+
+            res.json(orders);
+        }else{
+            res.status(500).json({error:"User has no orders"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"Could not get users orders"});
     }
 });
 
