@@ -44,6 +44,7 @@ export default function OrdersUser(){
                                             <th>Date</th>
                                             <th>Site</th>
                                             <th>Total</th>
+                                            <th>Status</th>
                                             <th>View</th>
                                         </tr>
                                     </thead>
@@ -54,6 +55,7 @@ export default function OrdersUser(){
                                                     <td>{new Date(order.timestamp).toLocaleString("UK")}</td>
                                                     <td>{order.site}</td>
                                                     <td>£{order.total}</td>
+                                                    <td>{order.status}</td>
                                                     <td><Button href={'/order/'+order.id}>View Order</Button></td>
                                                 </tr>
                                             ))

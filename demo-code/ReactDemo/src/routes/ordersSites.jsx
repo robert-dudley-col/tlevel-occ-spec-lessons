@@ -74,6 +74,7 @@ export default function OrdersSites(){
                                         <tr>
                                             <th>Date and Time</th>
                                             <th>Total</th>
+                                            <th>Status</th>
                                             <th>View</th>
                                         </tr>
                                     </thead>
@@ -83,7 +84,8 @@ export default function OrdersSites(){
                                                 <tr key={order.id}>
                                                     <td>{new Date(order.timestamp).toLocaleString("UK")}</td>
                                                     <td>£{order.total}</td>
-                                                    <td><Button href={'/orders/'+order.id}>View Order</Button></td>
+                                                    <td>{order.status}</td>
+                                                    <td><Button href={'/orders/'+order.id+'/staff'}>View Order</Button></td>
                                                 </tr>
                                             ))
                                         }
