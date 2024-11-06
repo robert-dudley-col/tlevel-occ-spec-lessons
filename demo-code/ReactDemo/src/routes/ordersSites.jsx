@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Button,
@@ -9,10 +9,8 @@ import {
     Row,
     Table
 } from 'react-bootstrap';
-import { useParams  } from 'react-router-dom';
 import PageNavbar from '../components/navbar';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 export default function OrdersSites(){
     const [sitesLoaded, setSitesLoaded] = useState(false);

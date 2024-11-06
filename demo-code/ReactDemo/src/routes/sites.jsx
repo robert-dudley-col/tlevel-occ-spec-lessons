@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import
 {
@@ -40,7 +40,7 @@ export default function Sites(){
                 <Row>
                     {
                         sites.map(site =>(
-                            <Col xs='4'>
+                            <Col key={site._id} xs='4'>
                                 <Card>
                                     <Card.Img variant='top' src={site.image}/>
                                     <Card.Body>

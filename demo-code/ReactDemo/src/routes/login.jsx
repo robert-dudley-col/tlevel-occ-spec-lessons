@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {
     Alert,
@@ -57,7 +57,7 @@ export default function Login(){
                         <Alert variant='danger' dismissible>
                             <Alert.Heading>Oh No!</Alert.Heading>
                             <p>
-                                message
+                                {message}
                             </p>
                         </Alert>
                         <Card>
